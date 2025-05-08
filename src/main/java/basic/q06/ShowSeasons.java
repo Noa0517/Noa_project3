@@ -7,8 +7,8 @@ public class ShowSeasons {
 	public static void main(String[] args) {
 		System.out.println("整数を入力してください");
 		
-		Scanner scan = new Scanner(System.in);
-		int a = scan.nextInt();
+		Scanner scanner = new Scanner(System.in);
+		int a = scanner.nextInt();
 		switch (a) {
 			case 12: case 1: case 2:
 				System.out.println(a + "月は冬です");
@@ -25,6 +25,7 @@ public class ShowSeasons {
 			default :
 				System.out.println(a+"月は存在しないです。");
 		}
+		scanner.close();
 	}
 
 }
