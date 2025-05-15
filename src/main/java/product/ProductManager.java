@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProductManager {
+public class ProductManager implements Searchable {
 	private List<Product> products;
 	
 	//コンストラクタ
@@ -22,21 +22,54 @@ public class ProductManager {
 		products.removeIf(product -> product.getId() == id);
 	}
 	
-	//nameを引数としてproduct情報を取得するメソッド
+	//Searchableメソッド実装
+	@Override
 	public Product getProductByName(String name) {
 		for (Product product : products) {
 			if(product.getName().equals(name)) {
 				return product;
 			}
 		}
-		return null; //該当する商品がない場合
+		return null;
 	}
-
-
+	
+	@Override
+	public Product search(String name) {
+		for(Product product : products) {
+			if(product.getName().equals(name)) {
+				return product;
+			}
+		}
+		return null;
+	}
+	
+	//商品情報を表示
 	public void displayProducts() {
-		//System.out.println("---商品を5つ追加してすべての商品を追加する---");
-		for (Product product : products) {
-			System.out.println("Product: id=" + product.getId() + ", name=" + product.getName() + ", price=" + product.getPrice() + ", stock=" + product.getStock());
+		//System.out.println("---商品一覧---");
+		for(Product product : products) {
+			System.out.print("Product: id=" + product.getId() + ", name=" + product.getName() + ", price=" + product.getPrice() + ", stock=" + product.getStock());
+			//displayProductInfo(product);
+			
+			System.out.println();
 		}
 	}
+	public void displayProductInfo(Product product) {
+		if(product == null) {
+			System.out.println("---商品が見つかりません---");
+			return;
+		}
+		
+		//商品の記法情報を表示
+		System.out.println("Product: id=" + product.getId() + ", name=" + product.getName() + ", price=" + product.getPrice() + ", stock=" + product.getStock());
+		
+		//割引商品の場合のみ
+		if (product instanceof DiscountedProduct) {
+			DiscountedProduct dp = (DiscountedProduct) product;
+			//System.out.println("---商品名「" + product.getName() + "」の情報と割引率" + (dp.getDiscountRate() * 100) + "%の情報を表示する ---");
+			System.out.print(", 割引率=" + ((int)(dp.getDiscountRate() * 100)) + "%, 割引後価格=" + ((int)dp.calculateDiscountedPrice()));
+		}
+		
+		System.out.println();
+	}
 }
+    

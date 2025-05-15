@@ -8,7 +8,7 @@ public class Main {
 
         // 商品の追加
         manager.addProduct(new Product(1, "冷蔵庫", 50000, 10));
-        manager.addProduct(new Product(2, "ソファ", 30000, 5));
+        manager.addProduct(new DiscountedProduct(2, "ソファ", 30000.0, 5, 0.30));
         manager.addProduct(new Product(3, "米", 2000, 3));
         manager.addProduct(new Product(4, "小説", 1500, 4));
         manager.addProduct(new Product(5, "Tシャツ", 1500, 5));
@@ -33,6 +33,16 @@ public class Main {
         }else {
         	System.out.println("---商品が見つかりませんでした---");
         }
+        
+        //ソファを割引商品として追加
+        System.out.println("---商品名「ソファ」の情報と割引率30％の情報を表示する---");
+        manager.addProduct(new DiscountedProduct(2, "ソファ", 30000.0, 5, 0.30));
+        Product sofa = manager.getProductByName("ソファ");
+        manager.displayProductInfo(sofa);
+        
+        //商品検索
+        System.out.println("---商品名「Tシャツ」を検索して表示する---");
+        Product tshirt = manager.search("Tシャツ");
+        manager.displayProductInfo(tshirt);
     }
-
 }
