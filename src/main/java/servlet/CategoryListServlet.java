@@ -16,10 +16,15 @@ import model.entity.CategoryBean;
 
 public class CategoryListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
         CategoryDAO categoryDAO = new CategoryDAO();
         List<CategoryBean> categoryList = categoryDAO.getAllCategories();
         
         request.setAttribute("categoryList", categoryList);
+        
+        System.out.println("Servlet開始");
+        System.out.println("CategoryListServlet にリクエストが来た");
+        System.out.println("categoryList のサイズ: " + categoryList.size());
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/category-list.jsp");
         dispatcher.forward(request, response);
