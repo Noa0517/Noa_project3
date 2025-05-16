@@ -19,13 +19,13 @@ public class CategoryListServlet extends HttpServlet {
 		
 		//CategoryDAOのインスタンスを作成
 		CategoryDAO categoryDAO = new CategoryDAO();
-        List<CategoryBean> categories = CategoryDAO.getAllCategories();
+		List<CategoryBean> categoryList = categoryDAO.getAllCategories();
         
         //取得したカテゴリリストをリクエスト属性にセット
         request.setAttribute("categoryList", categoryList);
         
         //category-list.jspにフォワード
-        RequestDispatcher dispatcher = request.getRequestDispatcher("category-list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/category-list.jsp");
         dispatcher.forward(request, response);
     }
 
