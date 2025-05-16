@@ -15,18 +15,13 @@ import model.entity.CategoryBean;
 @WebServlet("/category-list")
 
 public class CategoryListServlet extends HttpServlet {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//CategoryDAOのインスタンスを作成
-		CategoryDAO categoryDAO = new CategoryDAO();
-		List<CategoryBean> categoryList = categoryDAO.getAllCategories();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        CategoryDAO categoryDAO = new CategoryDAO();
+        List<CategoryBean> categoryList = categoryDAO.getAllCategories();
         
-        //取得したカテゴリリストをリクエスト属性にセット
         request.setAttribute("categoryList", categoryList);
         
-        //category-list.jspにフォワード
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/category-list.jsp");
         dispatcher.forward(request, response);
     }
-
 }
