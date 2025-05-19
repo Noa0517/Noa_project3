@@ -22,6 +22,7 @@ public class CategoryDAO {
 	public List<CategoryBean> getAllCategories() {
         List<CategoryBean> categoryList = new ArrayList<>();
         String sql = "SELECT category_id, category_name FROM categories";
+        System.out.println("SQLクエリ: " + sql);
         
         try (PreparedStatement pstmt = connection.prepareStatement(sql);
         		ResultSet rs = pstmt.executeQuery()){
