@@ -1,21 +1,15 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="java.util.*, yourpackage.CategoryDTO" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.entity.CategoryBean" %>
 
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8>"
+    <meta charset="UTF-8">
     <title>カテゴリ一覧</title>
     <style>
-        table{
-            width: 50%;
-            border-collapse: collapse;
-        }
-        th, td{
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
+        table { width: 50%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
      </style>
 </head>
 <body>
@@ -26,9 +20,9 @@
              <th>カテゴリ名</th>
          </tr>
          <%
-             List<CategoryDTO> categories = (List<CategoryDTO>) request.getAttribute("categoryList");
-             if (categoryList != null){
-                 for (Category category : categoryList) {
+         List<CategoryBean> categoryList = (List<CategoryBean>) request.getAttribute("categoryList");
+         if (categoryList != null && !categoryList.isEmpty()){
+             for (CategoryBean category : categoryList) {
          %>
          <tr>
              <td><%= category.getCategoryId() %></td>
@@ -36,6 +30,12 @@
          </tr>
          <%
                  }
+            } else {
+         %>
+         <tr>
+             <td colspan="2">カテゴリが見つかりません</td>
+         </tr>
+         <%
             }
          %>
      </table>
