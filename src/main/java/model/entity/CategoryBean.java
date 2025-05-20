@@ -3,22 +3,29 @@ package model.entity;
 import java.io.Serializable;
 
 public class CategoryBean implements Serializable {
-    private int categoryId;
-    private String categoryName;
+	private static final long serialVersionUID = 1L;
 	
-    // 引数なしのコンストラクタ
+    private int category_Id;
+    private String category_Name;
+	
+    // デフォルトコンストラクター
     public CategoryBean() {}
     
-    //引数付きコンストラクタの追加
-    public CategoryBean(int categoryId, String categoryName) {
-    	this.categoryId = categoryId;
-    	this.categoryName = categoryName;
+    //引数付きコンストラクター
+    public CategoryBean(int category_Id, String category_Name) {
+    	this.category_Id = category_Id;
+    	this.category_Name = category_Name;
     }
     
     //ゲッター・セッター
-    public int getCategoryId() { return categoryId; }
-    public void setCategoryId(int categoryId) { this.categoryId = categoryId; }
+    public int getCategoryId() { return category_Id; }
+    public void setCategoryId(int categoryId) { this.category_Id = categoryId; }
 
-    public String getCategoryName() { return categoryName; }
-    public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
+    public String getCategoryName() { return category_Name; }
+    public void setCategoryName(String categoryName) { this.category_Name = categoryName; }
+    
+    //デバック用のtoStringメソッド
+    public String toString() {
+    	return "CategoryBean{" + "categoryId=" + category_Id + ", categoryName='" + category_Name + '\'' + '}';
+    }
 }
