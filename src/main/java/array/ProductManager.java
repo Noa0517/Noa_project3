@@ -58,11 +58,17 @@ public class ProductManager{
 		System.out.print("商品名を入力してください： ");
 		String productName = scanner.nextLine();
 			
-		//商品名が空の場合エラーメッセージを表示
+		//商品名が空の場合、例外をスルーする
 		if (productName == null || productName.trim().isEmpty()) {
 			System.out.println("無効な入力です。入力された商品名：" + productName);
-			System.out.println("\033[31m無効な入力です。商品名を正しく入力してください。\033[0m");
-			return;
+			try {
+				throw new Exception("無効な入力です。商品名を正しく入力してください。");
+			} catch (Exception e) {
+				System.out.println("java.lang.Exception：" + e.getMessage());
+				//スタックトレースを表示
+				e.printStackTrace();
+				return;
+			}
 		}
 		
 		System.out.print("価格を入力してください： ");
@@ -71,7 +77,13 @@ public class ProductManager{
 		//価格がマイナスの場合エラーメッセージを表示
 		if (price < 0) {
 			System.out.println("無効な入力です。入力された価格：" + price);
-			System.out.println("\033[31m無効な入力です。価格を正しく入力してください。\033[0m");
+			try {
+				throw new Exception("無効な入力です。価格を正しく入力してください。");
+			} catch(Exception e) {
+				System.out.println("java.lang.Exception：" + e.getMessage());
+				e.printStackTrace();
+				return;
+			}
 		}
 			
 		System.out.print("在庫数を入力してください： ");
@@ -80,7 +92,13 @@ public class ProductManager{
 		//在庫数がマイナスの場合エラーメッセージを表示
 		if (stock < 0) {
 			System.out.println("無効な入力です。入力された在庫数：" + stock);
-			System.out.println("\033[31m無効な入力です。在庫を正しく入力してください。\033[0m");
+			try {
+				throw new Exception("無効な入力です。在庫を正しく入力してください。");
+			} catch(Exception e) {
+				System.out.println("java.lang.Exception：" + e.getMessage());
+				e.printStackTrace();
+				return;
+			}
 		}
 			
 		
