@@ -1,4 +1,4 @@
-package servlet;
+package servlet; 
 
 import java.io.IOException;
 import java.util.List;
@@ -8,29 +8,31 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.dao.CategoryDAO;
 import model.entity.CategoryBean;
 
-
-public class CategoryListServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private static final CategoryDAO dao = new CategoryDAO();
+//登録データを一覧表示するクラス
+//@webServlet("/category-list")
+public class CategoryListServlet extends HttpServlet {	
+	public void doPost(HttpServletRequest req, HttpServletResponse res)
+			throws IOException, ServletException {
+		
+		//DAOオブジェクトを生成
+		CategoryDAO2 sdao =new CategoryDAO2();
+		List<CategoryBean> categoryList = sdao.select(); //追加
+		
+		req.setAttribute("categoryList", categoryList); //追加
+		
+		//全件検索した結果
+		//CategoryDAO sdto = sdao.select();
+			
+			//req.setAttribute("sdto", sdto);
+		
+		RequestDispatcher rd = req.getRequestDispatcher("/category-list.jsp");
+		rd.forward(req, res);
+	}
 	
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	try {
-    		//カテゴリー一覧を取得
-    		List<CategoryBean> categoryList = dao.getCategories();
-    		
-    		//リクエストスコープにデータを保存
-    		request.setAttribute("categoryList", categoryList);
-    	} catch(Exception e) {
-    		e.printStackTrace();
-    		request.setAttribute("errorMessage", "カテゴリ情報の取得に失敗しました。");
-    	}
-    	
-    	//JSPページにフォワード
-        RequestDispatcher dispatcher = request.getRequestDispatcher("category-list.jsp");
-        dispatcher.forward(request, response);
-
-    }
+	public void doGet(HttpServletRequest req, HttpServletResponse res)
+			throws IOException, ServletException{
+		doPost(req, res);
+	}
 }

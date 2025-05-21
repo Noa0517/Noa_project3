@@ -1,28 +1,24 @@
 package model.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class ConnectionManager {
-	//データベースの接続情報
-	private static final String URL = "jdbc:mysql://localhost:3306/product_db";
-	private static final String USER = "Noa";
-	private static final String PASSWORD = "Noa20010517&&";
+import model.entity.CategoryBean;
+
+public class ConnectionManager implements Serializable {
+	private ArrayList<CategoryBean> list;
 	
-	//データベース接続を取得するメソッド
-	public static Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(URL, USER, PASSWORD);
+	public ConnectionManager() {
+		list = new ArrayList<CategoryBean>();
 	}
-	
-	//接続を安全に閉じるメソッド
-	public static void closeConnection(Connection conn) {
-		if (conn != null) {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+	public void add(CategoryBean sb) {
+		list.add(sb);
 	}
+	public CategoryBean get(int i) {
+		return list.get(i);
+	}
+	public int size() {
+		return list.size();
+	}
+
 }

@@ -1,66 +1,72 @@
-package model.dao;
-//package model.entity;
-
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.entity.CategoryBean;
 
+//import model.entity.CategoryBean;
+
 public class CategoryDAO {
+	private static final String URL = "jdbc:mysql://localhost:3306//categories?serverTimezone=UTC";
+	private static final String USER = "Noa";
+	private static final String PASS = "Noa20010517&&";
+	private Connection con = null;
 	
-	//カテゴリ一覧を取得するメソッド
-	public List<CategoryBean> getCategories(){
-		List<CategoryBean> categoryList = new ArrayList<>();
+	public void connect() {
+		try {
+			//DBに接続
+			con = DriverManager.getConnection(URL, USER, PASS);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public List<CategoryBean> select(){
+	//public ConnectionManager select() {
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<CategoryBean> categoryList = new ArrayList<>();//修正
+		//ConnectionManager sdto = new ConnectionManager();
 		String sql = "SELECT * FROM categories;";
 		
-		try (Connection conn = ConnectionManager.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(sql);
-				ResultSet rs = stmt.executeQuery()){
+		try {
+			connect();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
-				CategoryBean category = new CategoryBean(
-						rs.getInt("category_id"),
-						rs.getString("category_name")
-						);
-				categoryList.add(category);
+				CategoryBean sb = new CategoryBean();
+				sb.setId(rs.getInt("category_id"));
+				sb.setName(rs.getString("category_name"));
+				categoryList.add(sb);
+				//sdto.add(sb);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		disconnect();
 		return categoryList;
+		//return sdto;
 	}
 	
-	//カテゴリを追加するメソッド
-	public boolean addCategory(String categoryName) {
-		String sql = "INSERT INTO categories (category_name) VALUES (?);";
-		
-		try (Connection  conn = ConnectionManager.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(sql)){
-			
-			stmt.setString(1, categoryName);
-			return stmt.executeUpdate() > 0;
-		} catch (SQLException e) {
+	public void disconnect() {
+		try {
+			if(con != null)
+				con.close();
+		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	//カテゴリを削除するメソッド
-	public boolean deleteCategory(int categoryId) {
-		String sql = "DELETE FROM categories WHERE category_id = ?;";
-		
-		try (Connection conn = ConnectionManager.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(sql)){
-			
-			stmt.setInt(1, categoryId);
-			return stmt.executeUpdate() > 0;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
 		}
 	}
 }
