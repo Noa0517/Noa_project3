@@ -54,7 +54,7 @@ public class PracticeDB {
 			int rowsInserted = stmt.executeUpdate();
 			if (rowsInserted > 0) {
 				System.out.println("登録成功件数： " + rowsInserted);
-				System.out.println("登録内容：商品名：" + name + "商品ID：" + category_id + ", 価格： " + price + ", 在庫数 " + stock);
+				System.out.println("登録内容：\n商品名：" + name + ", 価格： " + price + ", 在庫数 : " + stock + ", カテゴリーID： " + category_id);
 			}
 		} catch (SQLException e) {
 			System.out.println("商品追加の失敗： " + e.getMessage());
@@ -90,7 +90,7 @@ public class PracticeDB {
 			System.out.println("更新成功行数： " + rowsUpdated + "件");
 			
 			if (rowsUpdated > 0) {
-				System.out.println("更新内容：商品ID： " + productId + ", 価格： " + newPrice + ", 在庫数： " + newStock);
+				System.out.println("更新内容：\n商品ID： " + productId + ", 価格： " + newPrice + ", 在庫数： " + newStock);
 			} else {
 				System.out.println("更新失敗");
 			}
@@ -119,7 +119,7 @@ public class PracticeDB {
 			System.out.println("削除成功件数： " + rowsDeleted + "件");
 			
 			if (rowsDeleted > 0) {
-				System.out.println("商品ID " + category_id + " を削除しました。");
+				System.out.println("カテゴリーID " + category_id + " を削除しました。");
 			} else {
 				System.out.println("指定されたカテゴリに該当する商品が見つかりませんでした。");
 			}
