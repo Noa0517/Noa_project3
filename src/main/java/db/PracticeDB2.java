@@ -57,7 +57,6 @@ public class PracticeDB2 {
 		
 		String sql = "UPDATE Products SET price = ?, stock = ? WHERE id = ?";
 		
-		int rowsUpdates1 = 0;
 		int rowsUpdated2 = 0;
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)){
@@ -100,17 +99,19 @@ public class PracticeDB2 {
 			}
 			System.out.println("更新失敗: " + e.getMessage());
 		}
+		scanner.close();
 	}
 	
 	//複数商品IDと更新後の在庫数を更新する
 	public static void updateStockLevels(Connection conn, Map<Integer, Integer> stockUpdates) {
 		try {
-			conn.setAutoCommit(false);
 			
 			try (PreparedStatement stmt = conn.prepareStatement("UPDATE Products SET stock = ? WHERE id = ?")){
 				
+				conn.setAutoCommit(false);
+				
 				for(Map.Entry<Integer, Integer> entry : stockUpdates.entrySet()) {
-					System.out.println("在庫更新: 商品ID " + entry.getKey() + " の在庫を " + entry.getValue() + " に更新");
+					//System.out.println("在庫更新: 商品ID " + entry.getKey() + " の在庫を " + entry.getValue() + " に更新");
 					stmt.setInt(1,  entry.getValue());
 					stmt.setInt(2, entry.getKey());
 					stmt.addBatch();
@@ -127,6 +128,8 @@ public class PracticeDB2 {
 			} catch (SQLException e) {
 				conn.rollback();
 				System.out.println("在庫更新エラー： " + e.getMessage());
+			} finally {
+				conn.setAutoCommit(true);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -135,7 +138,7 @@ public class PracticeDB2 {
 	
 	public static void main(String[] args) {
 		try (Connection conn = getConnection2()){
-			System.out.println("DB接続成功");
+			//System.out.println("DB接続成功");
 			
 			//商品の在庫更新処理を追加
 			Map<Integer, Integer> stockUpdates = new HashMap<>();
