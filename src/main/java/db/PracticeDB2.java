@@ -29,6 +29,9 @@ public class PracticeDB2 {
 		
 		Scanner scanner = new Scanner(System.in);
 		
+		//修正1
+		boolean originalAutoCommit = true;
+		
 		//更新する商品IDを入力①
 		System.out.println("商品IDを入力してください： ");
 		int productId1 = scanner.nextInt();
@@ -58,6 +61,11 @@ public class PracticeDB2 {
 		String sql = "UPDATE Products SET price = ?, stock = ? WHERE id = ?";
 		
 		int rowsUpdated2 = 0;
+		
+		//修正2
+		try {
+			originalAutoCommit = conn.getAutoCommit();
+			conn.setAutoCommit(false); //トランザクション開始
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)){
 			//1件目の商品更新
@@ -99,16 +107,33 @@ public class PracticeDB2 {
 			}
 			System.out.println("更新失敗: " + e.getMessage());
 		}
+		
+		//修正3
+		} catch (SQLException e) {
+		scanner.close();
+		} finally {
+			try {
+				conn.setAutoCommit(originalAutoCommit);
+			} catch (SQLException e) {
+				System.err.println("AutoCommit設定の復元失敗： " + e.getMessage());
+			}
+			scanner.close();
+		}
 		scanner.close();
 	}
 	
 	//複数商品IDと更新後の在庫数を更新する
 	public static void updateStockLevels(Connection conn, Map<Integer, Integer> stockUpdates) {
+		//修正4
+		boolean originalAutoCommit = true;
+		
 		try {
+			//修正5
+			originalAutoCommit = conn.getAutoCommit();
+			conn.setAutoCommit(false);
 			
 			try (PreparedStatement stmt = conn.prepareStatement("UPDATE Products SET stock = ? WHERE id = ?")){
 				
-				conn.setAutoCommit(false);
 				
 				for(Map.Entry<Integer, Integer> entry : stockUpdates.entrySet()) {
 					//System.out.println("在庫更新: 商品ID " + entry.getKey() + " の在庫を " + entry.getValue() + " に更新");
@@ -128,11 +153,19 @@ public class PracticeDB2 {
 			} catch (SQLException e) {
 				conn.rollback();
 				System.out.println("在庫更新エラー： " + e.getMessage());
-			} finally {
-				conn.setAutoCommit(true);
-			}
+			} //finally {
+				//conn.setAutoCommit(true);
+			//}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		
+		finally {
+			try {
+				conn.setAutoCommit(originalAutoCommit);
+			} catch (SQLException e) {
+				System.err.println("AutoCimmmit設定の復元失敗： " + e.getMessage());
+			}
 		}
 	}
 	
