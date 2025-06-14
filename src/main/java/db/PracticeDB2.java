@@ -110,7 +110,8 @@ public class PracticeDB2 {
 		
 		//修正3
 		} catch (SQLException e) {
-		scanner.close();
+			//エラーメッセージを出力
+			System.out.println("トランザクション処理エラー：" + e.getMessage());
 		} finally {
 			try {
 				conn.setAutoCommit(originalAutoCommit);
@@ -119,7 +120,6 @@ public class PracticeDB2 {
 			}
 			scanner.close();
 		}
-		scanner.close();
 	}
 	
 	//複数商品IDと更新後の在庫数を更新する
@@ -153,9 +153,7 @@ public class PracticeDB2 {
 			} catch (SQLException e) {
 				conn.rollback();
 				System.out.println("在庫更新エラー： " + e.getMessage());
-			} //finally {
-				//conn.setAutoCommit(true);
-			//}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -164,14 +162,13 @@ public class PracticeDB2 {
 			try {
 				conn.setAutoCommit(originalAutoCommit);
 			} catch (SQLException e) {
-				System.err.println("AutoCimmmit設定の復元失敗： " + e.getMessage());
+				System.err.println("AutoCommit設定の復元失敗： " + e.getMessage());
 			}
 		}
 	}
 	
 	public static void main(String[] args) {
 		try (Connection conn = getConnection2()){
-			//System.out.println("DB接続成功");
 			
 			//商品の在庫更新処理を追加
 			Map<Integer, Integer> stockUpdates = new HashMap<>();
