@@ -1,41 +1,47 @@
-package model.dao;
-//package model.entity;
-
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Statement;
 
 import model.entity.CategoryBean;
 
 public class CategoryDAO {
-	private Connection connection;
+	private static final String URL = "jdbc:mysql://localhost:3306/categories?serverTimezone=UTC&useSSL=false";
+	//private static final String URL = "jdbc:mysql://localhost:3306/categories?serverTimezone=UTC";
+	private static final String USER = "root";
+	private static final String PASS = "Noa20010517&&";
+	private Connection con = null;
 	
-	//コンストラクタでDB接続
-	public CategoryDAO(Connection connection) {
-		this.connection = connection;
+	public void connect() {
+		try {
+			//DBに接続
+			con = DriverManager.getConnection(URL, USER, PASS);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	//全カテゴリ取得メソッド
-	public List<CategoryBean> getAllCategories() {
-        List<CategoryBean> categoryList = new ArrayList<>();
-        String sql = "SELECT category_id, category_name FROM categories";
-        System.out.println("SQLクエリ: " + sql);
-        
-        try (PreparedStatement pstmt = connection.prepareStatement(sql);
-        		ResultSet rs = pstmt.executeQuery()){
-        	
-        	while (rs.next()) {
-        		CategoryBean category = new CategoryBean();
-        		category.setCategoryId(rs.getInt("category_id"));
-        		category.setCategoryName(rs.getString("category_name"));
-        		categoryList.add(category);
-        	}
-        } catch (SQLException e) {
-        	e.printStackTrace();
-        }
-        return categoryList;
+	public ConnectionManager select() {
+	//public List<CategoryBean> select() {
+		Statement stmt = null;
+		ResultSet rs = null;
+		//List<CategoryBean> categoryList = new ArrayList<>();
+		ConnectionManager sdto = new ConnectionManager();
+		String sql = "SELECT * FROM categories;";
+		
+		try (Connection con = DriverManager.getConnection(USER, USER, PASS);
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)){
+			
+			while (rs.next()) {
+				CategoryBean category = new CategoryBean();
+				category.setId(rs.getInt("category_id"));
+				category.setName(rs.getString("category_name"));
+				//categoryList.add(category);
+			}
+			rs.close();
+			stmt.close();
+		}
+		byte categoryList;
 	}
 }
