@@ -1,16 +1,24 @@
 package model.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class ConnectionManager {
-	private static final String URL = "jdbc:mysql://localhost:3306/yourdb";
-	private static final String USER = "Noa";
-	private static final String PASSWORD = "Noa20010517&&";
+import model.entity.CategoryBean;
+
+public class ConnectionManager implements Serializable {
+	private ArrayList<CategoryBean> list;
 	
-	public static Connection getConnection() throws SQLException{
-		return DriverManager.getConnection(URL, USER, PASSWORD);
+	public ConnectionManager() {
+		list = new ArrayList<CategoryBean>();
+	}
+	public void add(CategoryBean sb) {
+		list.add(sb);
+	}
+	public CategoryBean get(int i) {
+		return list.get(i);
+	}
+	public int size() {
+		return list.size();
 	}
 
 }
