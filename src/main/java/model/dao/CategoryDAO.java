@@ -2,13 +2,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.entity.CategoryBean;
 
+//import model.entity.CategoryBean;
+
 public class CategoryDAO {
-	private static final String URL = "jdbc:mysql://localhost:3306/categories?serverTimezone=UTC&useSSL=false";
-	//private static final String URL = "jdbc:mysql://localhost:3306/categories?serverTimezone=UTC";
-	private static final String USER = "root";
+	private static final String URL = "jdbc:mysql://localhost:3306//categories?serverTimezone=UTC";
+	private static final String USER = "Noa";
 	private static final String PASS = "Noa20010517&&";
 	private Connection con = null;
 	
@@ -21,27 +24,49 @@ public class CategoryDAO {
 		}
 	}
 	
-	public ConnectionManager select() {
-	//public List<CategoryBean> select() {
+	public List<CategoryBean> select(){
+	//public ConnectionManager select() {
 		Statement stmt = null;
 		ResultSet rs = null;
-		//List<CategoryBean> categoryList = new ArrayList<>();
-		ConnectionManager sdto = new ConnectionManager();
+		List<CategoryBean> categoryList = new ArrayList<>();//修正
+		//ConnectionManager sdto = new ConnectionManager();
 		String sql = "SELECT * FROM categories;";
 		
-		try (Connection con = DriverManager.getConnection(USER, USER, PASS);
-				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery(sql)){
+		try {
+			connect();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
-				CategoryBean category = new CategoryBean();
-				category.setId(rs.getInt("category_id"));
-				category.setName(rs.getString("category_name"));
-				//categoryList.add(category);
+				CategoryBean sb = new CategoryBean();
+				sb.setId(rs.getInt("category_id"));
+				sb.setName(rs.getString("category_name"));
+				categoryList.add(sb);
+				//sdto.add(sb);
 			}
-			rs.close();
-			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		byte categoryList;
+		disconnect();
+		return categoryList;
+		//return sdto;
+	}
+	
+	public void disconnect() {
+		try {
+			if(con != null)
+				con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
