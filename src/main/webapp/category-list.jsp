@@ -30,14 +30,6 @@ List<CategoryBean> categoryList = (List<CategoryBean>) request.getAttribute("cat
 
 if(categoryList != null){
 %>
-    <p>カテゴリ情報を取得出来ませんでした。</p>
-<%
-    } else if (categoryList.isEmpty()){
-%>
-    <p>登録されたカテゴリがありません。</p>
-<%
-    } else {
-%>
     <table border="1">
         <tr>
             <th>カテゴリID</th>
@@ -51,7 +43,16 @@ if(categoryList != null){
         <td><%= categoryItem.getName() %></td> <!-- カテゴリ名を表示 -->
     </tr>
 <%
-    	}
+    } else if (categoryList.isEmpty()){
+%>
+<p>登録されたカテゴリがありません。</p>
+<%
+    } else {
+ 
+%>
+<p>カテゴリ情報を取得出来ませんでした。</p>
+<%
+       }
 %>
 </table>
 <%
