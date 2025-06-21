@@ -8,10 +8,12 @@
     <style>
       table {
         border: 1px solid black;
+        border-collapse: collapse;
       }
       th, td {
         padding: 5px;
         text-align: left;
+        border: 1px solid black;
       }
     </style>
 </head>
@@ -19,44 +21,38 @@
 
 <h2>カテゴリ一覧</h2>
 
-<table border="1">
-    <tr>
-        <th>カテゴリID</th>
-        <th>カテゴリ名</th>
-    </tr>
-    
 <%
 List<CategoryBean> categoryList = (List<CategoryBean>) request.getAttribute("categoryList");
 
-if(categoryList != null){
+if(categoryList == null) {
 %>
-    <table border="1">
-        <tr>
-            <th>カテゴリID</th>
-            <th>カテゴリ名</th>
-        </tr>
+	<p>カテゴリ情報を取得できませんでした。</p>
 <%
-        for (CategoryBean categoryItem : categoryList){
+} else if (categoryList.isEmpty()) {
 %>
-    <tr>
-        <td><%= categoryItem.getId() %></td> <!-- カテゴリIDを表示 -->
-        <td><%= categoryItem.getName() %></td> <!-- カテゴリ名を表示 -->
-    </tr>
+	<p>登録されたカテゴリがありません。</p>
 <%
-    } else if (categoryList.isEmpty()){
+} else {
 %>
-<p>登録されたカテゴリがありません。</p>
+	<table border="1">
+    	<tr>
+        	<th>カテゴリID</th>
+        	<th>カテゴリ名</th>
+    	</tr>
 <%
-    } else {
- 
+	for (CategoryBean categoryItem : categoryList) {
 %>
-<p>カテゴリ情報を取得出来ませんでした。</p>
+		<tr>
+			<td><%= categoryItem.getId() %></td>
+			<td><%= categoryItem.getName() %></td>
+		</tr>
 <%
-       }
+	}
 %>
-</table>
+	</table>
 <%
-    }
+}
 %>
+
 </body>
 </html>
