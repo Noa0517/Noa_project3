@@ -12,7 +12,7 @@ import model.dao.CategoryDAO;
 import model.entity.CategoryBean;
 
 //登録データを一覧表示するクラス
-//@webServlet("/category-list")
+@webServlet("/category-list")
 public class CategoryListServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException {
