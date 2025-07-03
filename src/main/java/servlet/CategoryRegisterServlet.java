@@ -57,7 +57,9 @@ public class CategoryRegisterServlet extends HttpServlet {
     		dao.insert(category); // DAOを使ってDBに登録
     		
     		// 登録後はカテゴリ一覧にリダイレクト
-    		response.sendRedirect("category-list.jsp");
+    		//response.sendRedirect("category-list.jsp");
+    		//response.sendRedirect(request.getContextPath() + "/category-list");
+    		response.sendRedirect("http://localhost:8080/Noa_project/category-list");
     		
     	} catch (Exception e) {
     		e.printStackTrace();
