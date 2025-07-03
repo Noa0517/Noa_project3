@@ -22,6 +22,6 @@
     </form>
 
     <br/>
-    <a href="category-list.jsp">一覧ページへ戻る</a>
+    <a href="<%= request.getContextPath() %>/category-list">カテゴリ一覧</a>
 </body>
 </html>
