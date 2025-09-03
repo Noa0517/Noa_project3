@@ -9,7 +9,7 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
-<!--  
+
     <servlet>
         <servlet-name>CategoryListServlet</servlet-name>
         <servlet-class>servlet.CategoryListServlet</servlet-class>
@@ -19,5 +19,4 @@
         <servlet-name>CategoryListServlet</servlet-name>
         <url-pattern>/category-list</url-pattern>
 </servlet-mapping>
--->
 </web-app>
