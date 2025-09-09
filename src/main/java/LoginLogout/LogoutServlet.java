@@ -2,7 +2,6 @@ package LoginLogout;
 
 import java.io.IOException;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,14 +19,14 @@ public class LogoutServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
 		
-		//セッションの破棄
-		session.invalidate();
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Login.jsp");
-		dispatcher.forward(request, response);
+		//ログイン画面に戻る
+		response.sendRedirect("Login.jsp");
 	}
-
 }
