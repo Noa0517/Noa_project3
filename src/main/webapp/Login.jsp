@@ -8,6 +8,17 @@
 </head>
 <body>
 <h2>ログイン</h2>
+
+<%-- エラーメッセージの表示部分 --%>
+<%
+    String errorMessage = (String) request.getAttribute("errorMessage");
+    if (errorMessage != null) {
+%>
+    <p style="color: red;"><%= errorMessage %></p>
+<%
+    }
+%>
+
 <form action="LoginServlet" method="post">
 ユーザーID<input type="text" name="userId" required><br>
 パスワード<input type="text" name="password" required><br>
