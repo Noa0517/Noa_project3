@@ -29,8 +29,5 @@ public class LogoutServlet extends HttpServlet {
 		//ログイン画面に戻る
 		response.sendRedirect("Login.jsp");
 	}
-<<<<<<< HEAD
 }
-=======
 }
->>>>>>> 87350702ac686a4ade38f00942e10cb76dabab46
