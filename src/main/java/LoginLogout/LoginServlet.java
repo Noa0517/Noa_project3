@@ -31,6 +31,8 @@ public class LoginServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
 		
+		RequestDispatcher dispatcher;
+		
 	//認証処理
 	if ("Noa".equals(userId) && "0517".equals(password)) {
 		HttpSession session = request.getSession();
@@ -38,14 +40,16 @@ public class LoginServlet extends HttpServlet {
 		
 		//RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
 		//商品登録画面に遷移
-		RequestDispatcher dispatcher = request.getRequestDispatcher("RegisterAdd.jsp");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
-		dispatcher.forward(request, response);
+		dispatcher = request.getRequestDispatcher("RegisterAdd.jsp");
+		
+		//RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
+		//dispatcher.forward(request, response);
 	}else{
 		//認証失敗時はログイン画面に戻す
 		request.setAttribute("errorMessage", "ユーザーIDまたはパスワードが違います");
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("Login.jsp");
+	    dispatcher = request.getRequestDispatcher("Login.jsp");
+	}
 		dispatcher.forward(request, response);
 	}
 }
-}
+
