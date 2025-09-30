@@ -36,13 +36,10 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", userId);
 		
-<<<<<<< HEAD
 		//RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
 		//商品登録画面に遷移
 		RequestDispatcher dispatcher = request.getRequestDispatcher("RegisterAdd.jsp");
-=======
 		RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
->>>>>>> 87350702ac686a4ade38f00942e10cb76dabab46
 		dispatcher.forward(request, response);
 	}else{
 		//認証失敗時はログイン画面に戻す
