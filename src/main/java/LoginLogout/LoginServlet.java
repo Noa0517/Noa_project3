@@ -19,23 +19,31 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Login.jsp");
+		dispatcher.forward(request, response);
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
 		
-	//仮の認証処理
-	if ("root".equals(userId) && "1234".equals(password)) {
+	//認証処理
+	if ("Noa".equals(userId) && "0517".equals(password)) {
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", userId);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("welcom.jsp");
+		//RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
+		//商品登録画面に遷移
+		RequestDispatcher dispatcher = request.getRequestDispatcher("RegisterAdd.jsp");
 		dispatcher.forward(request, response);
 	}else{
 		//認証失敗時はログイン画面に戻す
 		request.setAttribute("errorMessage", "ユーザーIDまたはパスワードが違います");
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("Login.jsp");
 		dispatcher.forward(request, response);
 	}
 }

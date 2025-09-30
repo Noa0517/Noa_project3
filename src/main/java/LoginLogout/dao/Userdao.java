@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 public class Userdao {
 	
 	private static final String URL = "jdbc:mysql://localhost:3306/categories?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
+	//private static final String URL = "jdbc:mysql://localhost:3306/categories?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
 	private static final String USER = "root";
 	private static final String PASS = "Noa20010517&&";
 	
