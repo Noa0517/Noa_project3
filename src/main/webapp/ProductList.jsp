@@ -3,8 +3,7 @@
 <%@ page import="LoginLogout.model.Product" %>
 <%@ page import="LoginLogout.dao.ProductDAO" %>
 <%
-  ProductDAO dao = new ProductDAO();
-  List<Product> products = dao.findAll(); // ← DAOに一覧取得メソッドを追加！
+  List<Category> categories = (List<Category>) request.getAttribute("categories");
 %>
 <!DOCTYPE html>
 <html>
