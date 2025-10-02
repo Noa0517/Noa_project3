@@ -3,8 +3,7 @@
 <%@ page import="LoginLogout.model.Category" %>
 <%@ page import="LoginLogout.dao.CategoryDAO" %>
 <%
-  CategoryDAO dao = new CategoryDAO();
-  List<Category> categories = dao.findAll();
+  List<Category> categories = (List<Category>) request.getAttribute("categories");
 %>
 <!DOCTYPE html>
 <html>
@@ -27,8 +26,12 @@
   在庫数: <input type="number" name="stock"><br>
   カテゴリ数: <%= categories == null ? "null" : categories.size() + "件" %>
 <select name="categoryId">
+<% if (categories != null && !categories.isEmpty()) { %>
   <% for (Category c : categories) { %>
     <option value="<%= c.getCategoryId() %>"><%= c.getCategoryName() %></option>
+  <% } %>
+  <% } else { %>
+    <option disabled>カテゴリが取得できません</option>
   <% } %>
 </select><br>
 
