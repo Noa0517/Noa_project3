@@ -4,8 +4,7 @@
 <%@ page import="LoginLogout.dao.CategoryDAO" %>
 <%@ page import="LoginLogout.model.Category" %>
 <%
-  CategoryDAO dao = new CategoryDAO();
-  List<Category> categories = dao.findAll();
+  List<Category> categories = (List<Category>) request.getAttribute("categories");
 %>
 <!DOCTYPE html>
 <html>
