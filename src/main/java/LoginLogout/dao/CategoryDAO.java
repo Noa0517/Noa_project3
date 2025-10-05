@@ -12,8 +12,16 @@ import LoginLogout.model.Category;
 
 public class CategoryDAO {
 	
+<<<<<<< HEAD
+	//private static final String URL = "jdbc:mysql://localhost:3306/categories?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
+	private static final String URL = "jdbc:mysql://localhost:3306/categories";
+=======
 	private static final String URL = "jdbc:mysql://localhost:3306/categories?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
 	//private static final String URL = "jdbc:mysql://localhost:3306/categories";
+<<<<<<< HEAD
+=======
+>>>>>>> ab5b6ec (Add ProductListServlet for product listing)
+>>>>>>> ea28131
 	private static final String USER = "root";
 	private static final String PASS = "Noa20010517&&";
 	

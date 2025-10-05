@@ -41,6 +41,11 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", userId);
 		
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> ea28131
 		// カテゴリ一覧を取得してJSPに渡す
 	    CategoryDAO dao = new CategoryDAO();
 	    List<Category> categories = dao.findAll();
@@ -49,6 +54,10 @@ public class LoginServlet extends HttpServlet {
 
 
 		
+<<<<<<< HEAD
+=======
+>>>>>>> ab5b6ec (Add ProductListServlet for product listing)
+>>>>>>> ea28131
 		//RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
 		//商品登録画面に遷移
 		dispatcher = request.getRequestDispatcher("RegisterAdd.jsp");
