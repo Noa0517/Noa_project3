@@ -23,6 +23,7 @@ public class ProductListServlet extends HttpServlet {
         request.setAttribute("products", products);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("product-list.jsp");
+        //RequestDispatcher dispatcher = request.getRequestDispatcher("ProductList.jsp");
         dispatcher.forward(request, response);
     }
 }
