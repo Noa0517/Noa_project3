@@ -1,7 +1,10 @@
 package LoginLogout;
 
 import java.io.IOException;
+import java.util.List;
 
+import LoginLogout.dao.CategoryDAO;
+import LoginLogout.model.Category;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -38,6 +41,17 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", userId);
 		
+<<<<<<< HEAD
+=======
+		// カテゴリ一覧を取得してJSPに渡す
+	    CategoryDAO dao = new CategoryDAO();
+	    List<Category> categories = dao.findAll();
+	    request.setAttribute("categories", categories);
+	    dispatcher = request.getRequestDispatcher("addProduct.jsp");
+
+
+		
+>>>>>>> ab5b6ec (Add ProductListServlet for product listing)
 		//RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
 		//商品登録画面に遷移
 		dispatcher = request.getRequestDispatcher("RegisterAdd.jsp");

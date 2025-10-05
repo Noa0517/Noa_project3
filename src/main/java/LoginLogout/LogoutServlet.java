@@ -30,4 +30,8 @@ public class LogoutServlet extends HttpServlet {
 		response.sendRedirect("Login.jsp");
 	}
 }
+<<<<<<< HEAD
 }
+=======
+
+>>>>>>> ab5b6ec (Add ProductListServlet for product listing)

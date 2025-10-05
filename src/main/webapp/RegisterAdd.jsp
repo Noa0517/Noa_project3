@@ -24,7 +24,7 @@
     <%
       for (Category c : categories) {
     %>
-      <option value="<%= c.getCategoryId() %>"><%= c.getCategoryName() %></option>
+      <option value="<%= c.getId() %>"><%= c.getName() %></option>
     <%
       }
     %>
