@@ -19,6 +19,12 @@
 <body>
     <h2>ログイン成功</h2>
     <p>ようこそ、<strong><%= session.getAttribute("userId") %></strong> さん！</p>
+    
+    <h3>メニュー</h3>
+    <ul>
+        <li><a href="add-product-form">商品登録</a></li>
+    </ul>
+    
     <form action="LogoutServlet" method="post">
         <input type="submit" value="ログアウト">
     </form>

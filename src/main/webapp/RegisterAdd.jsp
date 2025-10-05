@@ -4,8 +4,7 @@
 <%@ page import="LoginLogout.dao.CategoryDAO" %>
 <%@ page import="LoginLogout.model.Category" %>
 <%
-  CategoryDAO dao = new CategoryDAO();
-  List<Category> categories = dao.findAll();
+  List<Category> categories = (List<Category>) request.getAttribute("categories");
 %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +24,7 @@
     <%
       for (Category c : categories) {
     %>
-      <option value="<%= c.getCategoryId() %>"><%= c.getCategoryName() %></option>
+      <option value="<%= c.getId() %>"><%= c.getName() %></option>
     <%
       }
     %>
