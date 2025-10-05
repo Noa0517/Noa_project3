@@ -41,6 +41,7 @@ public class RegisterServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String priceStr = request.getParameter("price");
 		String stockStr = request.getParameter("stock");
+		int stock = Integer.parseInt(request.getParameter("stock"));
 		String categoryIdStr = request.getParameter("categoryId");
 
 	    
@@ -62,7 +63,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		//数値チェック
 		int price = Integer.parseInt(priceStr);
-	    int stock = Integer.parseInt(stockStr);
+	    //int stock = Integer.parseInt(stockStr);
 	    int categoryId = Integer.parseInt(categoryIdStr);
 	    
 	    //マイナスチェック
@@ -73,6 +74,7 @@ public class RegisterServlet extends HttpServlet {
 	    }
 		
 		Product product = new Product(name, price, stock, categoryId);
+		//Product product = new Product(productId,name, price, stock, categoryId);
 		ProductDAO dao = new ProductDAO();
 		dao.insert(product);
 	    
