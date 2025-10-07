@@ -69,6 +69,11 @@ public class RegisterServlet extends HttpServlet {
 	    //マイナスチェック
 	    if (price < 0 || stock < 0) {
 	    	request.setAttribute("errorMessage", "価格と在庫数は0以上で入力してください");
+	    	
+	    	CategoryDAO categoryDao = new CategoryDAO();
+	        List<Category> categories = categoryDao.findAll();
+	        request.setAttribute("categories", categories);
+	        
 	    	request.getRequestDispatcher("addProduct.jsp").forward(request, response);
 	        return;
 	    }
