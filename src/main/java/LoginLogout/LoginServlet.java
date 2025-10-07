@@ -1,10 +1,7 @@
 package LoginLogout;
 
 import java.io.IOException;
-import java.util.List;
 
-import LoginLogout.dao.CategoryDAO;
-import LoginLogout.model.Category;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -34,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
 		
-		RequestDispatcher dispatcher;
+		//RequestDispatcher dispatcher;
 		
 	//認証処理
 	if ("Noa".equals(userId) && "0517".equals(password)) {
@@ -42,27 +39,14 @@ public class LoginServlet extends HttpServlet {
 		session.setAttribute("userId", userId);
 		
 
-		// カテゴリ一覧を取得してJSPに渡す
-	    CategoryDAO dao = new CategoryDAO();
-	    List<Category> categories = dao.findAll();
-	    request.setAttribute("categories", categories);
-	    dispatcher = request.getRequestDispatcher("addProduct.jsp");
-
-
-		
-
-		//RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
-		//商品登録画面に遷移
-		dispatcher = request.getRequestDispatcher("RegisterAdd.jsp");
-		
-		//RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
-		//dispatcher.forward(request, response);
-	}else{
-		//認証失敗時はログイン画面に戻す
-		request.setAttribute("errorMessage", "ユーザーIDまたはパスワードが違います");
-	    dispatcher = request.getRequestDispatcher("Login.jsp");
-	}
-		dispatcher.forward(request, response);
-	}
+		// 🔽 商品登録画面へリダイレクト（Servlet経由）
+        response.sendRedirect("add-product");
+        return;
+    } else {
+        // ログイン失敗 → エラーメッセージを表示してログイン画面に戻す
+        request.setAttribute("errorMessage", "ユーザーIDまたはパスワードが違います");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Login.jsp");
+        dispatcher.forward(request, response);
+    }
 }
-
+}
