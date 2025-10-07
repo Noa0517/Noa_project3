@@ -67,4 +67,71 @@ public class ProductDAO {
 		  }
 		  return list;
 		}
+	
+	public void delete(int id) {
+	    String sql = "DELETE FROM products WHERE product_id = ?";
+
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        stmt.setInt(1, id);
+	        int rows = stmt.executeUpdate();
+
+	        if (rows > 0) {
+	            System.out.println("商品削除完了: ID = " + id);
+	        } else {
+	            System.out.println("削除対象の商品が見つかりません: ID = " + id);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	public Product findById(int id) {
+	    Product product = null;
+	    String sql = "SELECT * FROM products WHERE product_id = ?";
+
+	    //try (Connection conn = getConnection();
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        stmt.setInt(1, id);
+	        ResultSet rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	            product = new Product(
+	                rs.getInt("product_id"),
+	                rs.getString("name"),
+	                rs.getInt("price"),
+	                rs.getInt("stock"),
+	                rs.getInt("category_id")
+	            );
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return product;
+	}
+	
+	public void update(Product product) {
+	    String sql = "UPDATE products SET name = ?, price = ?, stock = ?, category_id = ? WHERE product_id = ?";
+
+	    //try (Connection conn = getConnection();
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        stmt.setString(1, product.getName());
+	        stmt.setInt(2, product.getPrice());
+	        stmt.setInt(3, product.getStock());
+	        stmt.setInt(4, product.getCategoryId());
+	        stmt.setInt(5, product.getProductId());
+
+	        stmt.executeUpdate();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
+
 }

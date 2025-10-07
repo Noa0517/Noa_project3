@@ -1,7 +1,6 @@
 package LoginLogout.Servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import LoginLogout.dao.ProductDAO;
 import LoginLogout.model.Product;
@@ -12,21 +11,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/product-list")
-
-public class ProductListServlet extends HttpServlet {
+@WebServlet("/product-edit")
+public class ProductEditServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String idStr = request.getParameter("id");
+        int id = Integer.parseInt(idStr);
 
         ProductDAO dao = new ProductDAO();
-        List<Product> products = dao.findAll();
-        request.setAttribute("products", products);
+        Product product = dao.findById(id);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("product-list.jsp");
-
-        //RequestDispatcher dispatcher = request.getRequestDispatcher("ProductList.jsp");
-
+        request.setAttribute("product", product);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product-edit.jsp");
         dispatcher.forward(request, response);
     }
 }
-

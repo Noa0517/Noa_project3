@@ -24,6 +24,20 @@
         <td><%= p.getStock() %></td>
         <td><%= p.getCategoryId() %></td>
     </tr>
+    
+    <td>
+        <form action="product-delete" method="post" onsubmit="return confirm('本当に削除しますか？');">
+            <input type="hidden" name="id" value="<%= p.getProductId() %>" />
+            <input type="submit" value="削除" />
+        </form>
+        
+        <form action="product-edit" method="get">
+            <input type="hidden" name="id" value="<%= p.getProductId() %>" />
+            <input type="submit" value="編集" />
+        </form>
+        
+    </td>
+    
     <%
             }
         } else {

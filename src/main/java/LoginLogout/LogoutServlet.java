@@ -29,14 +29,5 @@ public class LogoutServlet extends HttpServlet {
 		//ログイン画面に戻る
 		response.sendRedirect("Login.jsp");
 	}
-<<<<<<< HEAD
 }
 
-=======
-}
-<<<<<<< HEAD
-}
-=======
-
->>>>>>> ab5b6ec (Add ProductListServlet for product listing)
->>>>>>> ea28131
