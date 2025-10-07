@@ -23,10 +23,9 @@ public class ProductListServlet extends HttpServlet {
         request.setAttribute("products", products);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("product-list.jsp");
-<<<<<<< HEAD
+
         //RequestDispatcher dispatcher = request.getRequestDispatcher("ProductList.jsp");
-=======
->>>>>>> ea28131
+
         dispatcher.forward(request, response);
     }
 }
