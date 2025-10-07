@@ -12,16 +12,8 @@ import LoginLogout.model.Category;
 
 public class CategoryDAO {
 	
-<<<<<<< HEAD
-	//private static final String URL = "jdbc:mysql://localhost:3306/categories?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
-	private static final String URL = "jdbc:mysql://localhost:3306/categories";
-=======
 	private static final String URL = "jdbc:mysql://localhost:3306/categories?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
 	//private static final String URL = "jdbc:mysql://localhost:3306/categories";
-<<<<<<< HEAD
-=======
->>>>>>> ab5b6ec (Add ProductListServlet for product listing)
->>>>>>> ea28131
 	private static final String USER = "root";
 	private static final String PASS = "Noa20010517&&";
 	
@@ -56,5 +48,27 @@ public class CategoryDAO {
 		}
 		return list;
 	}
+	
+	public String findNameById(int categoryId) {
+	    String name = null;
+	    String sql = "SELECT category_name FROM categories WHERE category_id = ?";
+
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        stmt.setInt(1, categoryId);
+	        ResultSet rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	            name = rs.getString("category_name");
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return name;
+	}
+
 
 }
