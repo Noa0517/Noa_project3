@@ -78,7 +78,8 @@ public class RegisterServlet extends HttpServlet {
 		ProductDAO dao = new ProductDAO();
 		dao.insert(product);
 	    
-		response.sendRedirect("product-list.jsp"); // 登録後に一覧画面へ
+		//response.sendRedirect("product-list.jsp"); // 登録後に一覧画面へ
+		response.sendRedirect("product-list");
 		
 	}
 
